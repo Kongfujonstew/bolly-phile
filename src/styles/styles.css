@@ -2,13 +2,28 @@
 Base
 */
 
-body, html {
+body, html, div, h1, form, img {
   margin: 0;
   padding: 0;
+  font-size: 1em;
+  font-family: lato;
 }
 
+.bollyFont {
+  font-family: 'Nothing You Could Do', cursive;
+}
 
+.largeFont {
+  font-size: 2.3em;
+}
 
+input:focus {
+  outline: auto 5px purple;
+}
+
+.hover:hover {
+  cursor: pointer;
+}
 
 
 /*
@@ -19,15 +34,33 @@ Layout
   height: 100%;
 }
 
-.flexCenterHorizontal {
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
+.flexContainer {
+  display: -webkit-flex;
+  display: flex;
 }
 
+.horizontalCenterContainer {
+  margin: 0 auto;
+}
 
+.verticalCenterAbsolute {
+  position: absolute;
+  top: 60%;
+}
 
+.absoluteCenter {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.whiteBackground {
+  background-color: white;
+}
+
+.tealBackground {
+  background-color: teal;
+}
 
 
 
@@ -39,8 +72,60 @@ Module: Guest & Member Login
   background: #000000 url("../images/bollyBackground.jpg") no-repeat;
 }
 
-.bollyBackgroundFade {
+.bollyBackground-isFaded {
   background: #000000 url("../images/bollyBackground.jpg") no-repeat;
 }
+
+.logoPosition {
+  position: absolute;
+  top: 30px;
+  right: 100px;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.bPicStyling {
+  height: 60px;
+  width: 60px;
+}
+
+.logoText {
+  color: white;
+  transform: translate(-12px, 10px);
+}
+
+.oneThirdWidth {
+  width: 33%;
+}
+
+.oneFifthHeight {
+  height: 20%;
+}
+
+.loginStyling {
+  transform: translateY(60%);
+  border-radius: 10px;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.loginPadding {
+  padding: 5px;
+}
+
+.formPadding {
+  padding: 3px;
+}
+
+.signupButtonStyling {
+  color: white;
+  padding: 5px;
+  margin: 8px 3px;
+  border-radius: 10px;
+}
+
+
 
 
