@@ -62,6 +62,14 @@ Layout
   background-color: teal;
 }
 
+.maroonBackground {
+  background-color: maroon;
+}
+
+.red {
+  color: red;
+}
+
 
 
 /*
@@ -70,6 +78,7 @@ Module: Guest & Member Login
 
 .bollyBackground {
   background: #000000 url("../images/bollyBackground.jpg") no-repeat;
+  background-position: 50% 0%;
 }
 
 .bollyBackground-isFaded {
@@ -94,17 +103,23 @@ Module: Guest & Member Login
   transform: translate(-12px, 10px);
 }
 
-.oneThirdWidth {
-  width: 33%;
+.memberSigninStyling {
+  position:absolute;
+  top: 125px;
+  right: 100px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.75);
 }
 
-.oneFifthHeight {
-  height: 20%;
+.setWidth {
+  width: 450px;
 }
 
 .loginStyling {
-  transform: translateY(60%);
+  transform: translateY(250%);
   border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.75);
 }
 
 .centerText {
@@ -116,10 +131,12 @@ Module: Guest & Member Login
 }
 
 .formPadding {
-  padding: 3px;
+  padding: 3px 3px 3px 15px;
 }
 
 .signupButtonStyling {
+  -webkit-flex: 1 0 0;
+  flex: 1 0 0;
   color: white;
   padding: 5px;
   margin: 8px 3px;
