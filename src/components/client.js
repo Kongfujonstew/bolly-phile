@@ -1,7 +1,9 @@
 import React from 'react';
 import {render} from 'react-dom';
-// import {Member} from './member';
-// import {Guest} from './guest';
+
+import {Member} from './member';
+import {Guest} from './guest';
+
 
 export class Client extends React.Component {
   constructor(props) {
@@ -11,6 +13,11 @@ export class Client extends React.Component {
     }
   }
 
+  toggleMemberLogin () {
+    this.setState({
+      loggedIn: true
+    })
+  }
 
   render () {
     if (!this.state.loggedIn) {
@@ -22,21 +29,17 @@ export class Client extends React.Component {
 
   _renderGuest () {
     return (
-      <div className="fullHeight bollyBackground">
-        <h1>OHYadEfHGuest</h1>
-      </div>
+      <Guest 
+        toggleMemberLogin={this.toggleMemberLogin.bind(this)}
+      />
     )
   }
 
   _renderMember () {
     return (
-      <div>
-        <h1>OHYadEfH</h1>
-      </div>
+      <Member 
+        toggleMemberLogin={this.toggleMemberLogin.bind(this)}
+      />
     )
   }
-
-
-
-
 }

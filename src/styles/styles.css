@@ -19,8 +19,12 @@ Layout
   height: 100%;
 }
 
-
-
+.flexCenterHorizontal {
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
 
 
 
@@ -28,11 +32,15 @@ Layout
 
 
 /*
-Module: Guest
+Module: Guest & Member Login
 */
 
 .bollyBackground {
-  background: #00ff00 url("../images/bollyBackground.jpg") no-repeat;
-
+  background: #000000 url("../images/bollyBackground.jpg") no-repeat;
 }
+
+.bollyBackgroundFade {
+  background: #000000 url("../images/bollyBackground.jpg") no-repeat;
+}
+
 
