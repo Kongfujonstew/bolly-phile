@@ -226,7 +226,7 @@ My Bolly
 }
 
 .messageTextBoxStyling {
-  position: absolute;
+  margin: 400px 0 0 0;
   bottom: 12px;
   margin: 10px;
 }
