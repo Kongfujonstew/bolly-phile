@@ -8,12 +8,18 @@ export class Guest extends React.Component {
     super(props);
 
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
       showMemberLogin: false,
       showWarning: false,
-      memberName: '',
+      memberName: 'Steve',
       memberPassword: ''
     }
+  }
+
+  toggleLoggedIn () {
+    this.setState({
+      loggedIn: !this.state.loggedIn
+    })
   }
 
   toggleShowMemberLogin () {
@@ -23,23 +29,11 @@ export class Guest extends React.Component {
     })
   }
 
-  toggleLoggedIn () {
-    this.setState({
-      loggedIn: !this.state.loggedIn
-    })
-  }
-
   handleMemberNameInput (e) {
     this.setState({
       memberName: e.target.value
     })
-  }  
-
-  handleMemberEmailInput (e) {
-    this.setState({
-      memberEmail: e.target.value
-    })
-  }  
+  }
 
   handleMemberPassInput (e) {
     this.setState({
@@ -50,7 +44,6 @@ export class Guest extends React.Component {
   createOrLoginMember (e) {
     e.preventDefault();
     let memberName = this.state.memberName;
-    let memberEmail = this.state.memberEmail;
     let memberPassword = this.state.memberPassword;
 
     console.log(memberPassword, memberName, memberEmail);
@@ -80,15 +73,16 @@ export class Guest extends React.Component {
 
   render () {
     if (this.state.loggedIn) {
-      return <Member/>
+      return <Member
+        toggleLoggedIn={this.toggleLoggedIn.bind(this)}
+        memberName={this.state.memberName}
+      />
     } else {
       return this._renderWelcomePage();
     }
   }
 
-
   _renderWelcomePage () {
-
     let guestMessage = <text>Welcome to  <text className="bollyFont">Bolly-phile </text>
       . . . Now you <text className="bollyFont">know</text> youre in Bollywood.
       </text>;
@@ -111,16 +105,13 @@ export class Guest extends React.Component {
             <div className="centerText">
               {this.state.showMemberLogin ? memberMessage : guestMessage}
             </div>
-            <form
-              onSubmit={this.createOrLoginMember.bind(this)}
-            >
+
+            <form>
               <div className="formPadding">Username<div><input 
-                type="text" name="memberName"
                 onChange={this.handleMemberNameInput.bind(this)}
               /></div></div>
 
               <div className="formPadding">Pass<div><input 
-                type="password" name="memberPassword"
                 onChange={this.handleMemberPassInput.bind(this)}
               /></div></div>
 
@@ -133,10 +124,9 @@ export class Guest extends React.Component {
                 <div className="signupButtonStyling centerText maroonBackground hover"
                   onClick={this.toggleShowMemberLogin.bind(this)}
                 >Members Login</div>
-
               </div>
-
             </form>
+
           </div>
         </div>
       </div>
