@@ -23,7 +23,6 @@
   "engines": {
     "node": "7.6.0"
   },
-  //add babel presets for heroku here:
   "babel": {
     "presets": [
       "es2015",
