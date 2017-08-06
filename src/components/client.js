@@ -9,13 +9,20 @@ export class Client extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false
+      loggedIn: false,
+      memberName: ''
     }
   }
 
   toggleMemberLogin () {
     this.setState({
-      loggedIn: true
+      loggedIn: !this.state.loggedIn
+    })
+  }
+
+  setMemberName (name) {
+    this.setState({
+      memberName: name
     })
   }
 
@@ -31,6 +38,7 @@ export class Client extends React.Component {
     return (
       <Guest 
         toggleMemberLogin={this.toggleMemberLogin.bind(this)}
+        setMemberName={this.setMemberName.bind(this)}
       />
     )
   }
@@ -39,6 +47,7 @@ export class Client extends React.Component {
     return (
       <Member 
         toggleMemberLogin={this.toggleMemberLogin.bind(this)}
+        memberName={this.state.memberName}
       />
     )
   }

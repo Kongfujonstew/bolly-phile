@@ -10,6 +10,7 @@ export class Member extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      memberName: '',
       showSearch: true,
       bollySelections: [],
       ongoingBollies: [],
@@ -18,6 +19,9 @@ export class Member extends React.Component {
   }
 
   componentWillMount() {
+    this.setState({
+      memberName: this.props.memberName,
+    })
     //graphQL query here to get ongoing bollies
   }
 
@@ -45,13 +49,12 @@ export class Member extends React.Component {
     })
   }
 
-
   render () {
     return (
       <div className="fullHeight memberMargin bBackground">
         <div className="flexContainer logoPosition tealBackground">
           <img src="../images/b.png" className="bPicStyling"/>
-          <div className="nameText bollyFont largeFont">{this.props.memberName}</div>
+          <div className="nameText bollyFont largeFont">{this.state.memberName}</div>
         </div>
 
         <div className="addBollySize whiteBackground floatBorder shadow">
@@ -84,8 +87,6 @@ export class Member extends React.Component {
             myBolly={this.state.myBolly}
           />
         </div>
-
-
 
       </div>
     )

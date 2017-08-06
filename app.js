@@ -1,15 +1,29 @@
-const express = require('express');
+import express from 'express';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
+import { graphiqlExpress, graphqlExpress } from 'graphql-server-express';
+import { makeExecutableSchema } from 'graphql-tools';
+import typeDefs from './graphQL/schema';
+import resolvers from './graphQL/resolvers';
+import models from './models';
+
 const app = express();
-const morgan = require('morgan');
+const port = process.env.PORT || 3000;
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
+});
 
 app.use(morgan('dev'));
-
 app.use(express.static('src'));
 
 if (module === require.main) {
-  const server = app.listen(process.env.PORT || 3000, () => {
-    console.log(`server listenin on port ${server.address().port}`);
-  });
-}
+  models.sequelize.sync().then(() => app.listen(port));
+};
 
-module.exports = app;
+app.use('/graphiql', graphiqlExpress({
+  endPointURL: '/graphql'
+}));
+
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema, context: { models } }));

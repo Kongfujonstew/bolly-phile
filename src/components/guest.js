@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
+import axios from 'axios';
 import {Member} from './member';
 import url from '../../evariables';
 
@@ -8,17 +9,17 @@ export class Guest extends React.Component {
     super(props);
 
     this.state = {
-      loggedIn: true,
       showMemberLogin: false,
       showWarning: false,
-      memberName: 'Steve',
+      memberName: '',
+      memberId: '',
       memberPassword: ''
     }
   }
 
-  toggleLoggedIn () {
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      loggedIn: !this.state.loggedIn
+      memberName: this.props.memberName,
     })
   }
 
@@ -43,46 +44,40 @@ export class Guest extends React.Component {
 
   createOrLoginMember (e) {
     e.preventDefault();
-    let memberName = this.state.memberName;
-    let memberPassword = this.state.memberPassword;
 
-    console.log(memberPassword, memberName, memberEmail);
+    let variables = {
+      membername: this.state.memberName,
+      memberpassword: this.state.memberPassword
+    }
 
     let query = `
-      mutation createOrLoginMember
-        where membername {
+      mutation CreateNewMember ($input: MemberInput) {
+        createMember (input: $input) {
+          id,
 
         }
-        email
-        password
-
+      }
     `;
-    // axios.post({
-    //   url: url.graphql,
-    //   query: query
-    // }).then(member => {
-    //   if (member.isLoggedIn) {
-    //     this.setState({
-    //       loggedIn: true
-    //     })
-    //   }
-    // })
 
+    axios.post(url.graphql, {
+      query: query,
+      input: variables
+    }).then((response) => {
+      console.log(response);
+      if (!response.data.data.createMember) {
+        console.log('no createMember Data');
+      } else {
+        this.props.setMemberName(this.state.memberName);
+        this.props.toggleMemberLogin();
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
   }
 
 
   render () {
-    if (this.state.loggedIn) {
-      return <Member
-        toggleLoggedIn={this.toggleLoggedIn.bind(this)}
-        memberName={this.state.memberName}
-      />
-    } else {
-      return this._renderWelcomePage();
-    }
-  }
-
-  _renderWelcomePage () {
     let guestMessage = <text>Welcome to  <text className="bollyFont">Bolly-phile </text>
       . . . Now you <text className="bollyFont">know</text> youre in Bollywood.
       </text>;
@@ -115,15 +110,18 @@ export class Guest extends React.Component {
                 onChange={this.handleMemberPassInput.bind(this)}
               /></div></div>
 
-              <div className="flexContainer">
-                {this.state.showMemberLogin ? null :
-                  <div className="signupButtonStyling centerText tealBackground hover"
+              <div>
+                {this.state.showMemberLogin ?
+                  <div className="signupButtonStyling centerText maroonBackground hover"
+                    onClick={this.createOrLoginMember.bind(this)}
+                  >Members Login</div>:
+                  <div className="flexContainer"><div className="signupButtonStyling centerText tealBackground hover"
                     onClick={this.createOrLoginMember.bind(this)}
                   >Become a Bolly-phile</div>
+                  <div className="signupButtonStyling centerText maroonBackground hover"
+                    onClick={this.toggleShowMemberLogin.bind(this)}
+                  >Members Login</div></div>
                 }
-                <div className="signupButtonStyling centerText maroonBackground hover"
-                  onClick={this.toggleShowMemberLogin.bind(this)}
-                >Members Login</div>
               </div>
             </form>
 

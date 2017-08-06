@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-const axios = require('axios');
+import axios from 'axios';
 
 const API_KEY = require('../../evariables.js').API_KEY;
 
@@ -56,7 +56,7 @@ export class Search extends React.Component {
         videoEmbeddable: true
       }
     })
-    .then(function (response) {
+    .then((response) => {
       console.log(response);
       that.props.addBollySelections(response.data.items);
     })

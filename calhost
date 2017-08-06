@@ -1,0 +1,18 @@
+                                               List of databases
+      Name       |      Owner      | Encoding |   Collate   |    Ctype    |          Access privileges          
+-----------------+-----------------+----------+-------------+-------------+-------------------------------------
+ graphqlserverdb | jmichaelstewart | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =Tc/jmichaelstewart                +
+                 |                 |          |             |             | jmichaelstewart=CTc/jmichaelstewart+
+                 |                 |          |             |             | graphqlserverdb=CTc/jmichaelstewart
+ hault           | jmichaelstewart | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ hault_test      | jmichaelstewart | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ postgres        | jmichaelstewart | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ template0       | jmichaelstewart | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/jmichaelstewart                 +
+                 |                 |          |             |             | jmichaelstewart=CTc/jmichaelstewart
+ template1       | jmichaelstewart | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/jmichaelstewart                 +
+                 |                 |          |             |             | jmichaelstewart=CTc/jmichaelstewart
+ thesis          | jmichaelstewart | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =Tc/jmichaelstewart                +
+                 |                 |          |             |             | jmichaelstewart=CTc/jmichaelstewart+
+                 |                 |          |             |             | postgres=CTc/jmichaelstewart
+(7 rows)
+
