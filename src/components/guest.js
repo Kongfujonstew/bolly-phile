@@ -45,23 +45,32 @@ export class Guest extends React.Component {
   createOrLoginMember (e) {
     e.preventDefault();
 
-    let variables = {
+    let input = {
       membername: this.state.memberName,
       memberpassword: this.state.memberPassword
     }
+
+    console.log(input.membername, input.memberpassword);
 
     let query = `
       mutation CreateNewMember ($input: MemberInput) {
         createMember (input: $input) {
           id,
+          membername
 
         }
       }
     `;
 
+    // let options = {
+    //   query: CreateNewMember,
+    //   operationName: createMember,
+    //   variables: { input: input}
+    // }
+
     axios.post(url.graphql, {
       query: query,
-      input: variables
+      variables: {input:input}
     }).then((response) => {
       console.log(response);
       if (!response.data.data.createMember) {
