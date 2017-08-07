@@ -5,74 +5,73 @@ export default `
     memberpassword: String
   }
 
-  input LoginInput {
-    membername: String
-    memberpassword: String
+  input BollyInput {
+    memberid: Int
+    title: String
+    youtubeurl: String
+    streamtime: String
+    jsondata: String
+  }
+
+  input MessageInput {
+    memberid: Int!
+    text: String!
+    bollyid: Int!
   }
 
   input BollyTimeUpdateInput {
     id: Int!
-    streamTime: String!
-  }
-
-  input MessageInput {
-    memberId: Int!
-    text: String!
-    bollyId: Int!
+    streamtime: String!
   }
 
   type Member {
     id: Int!
     membername: String!
     memberpassword: String!
-    bolly: Int!
+    bollyid: Int!
   }
 
-  input BollyInput {
-    memberId: Int
+  type Bolly {
+    id: Int
+    memberid: Int
     title: String
-    youTubeURL: String
-    streamTime: String
+    youtubeurl: String
+    streamtime: String
+    jsondata: String
   }
 
   type Message {
     id: Int!
     time: String!
-    memberId: Int!
+    memberid: Int!
     text: String!
-    bollyId: String!
-  }
-
-  type Bolly {
-    id: Int
-    memberId: Int
-    title: String
-    youtubeURL: String
-    streamTime: String
+    bollyid: String!
   }
 
   type Query {
     hello(input: String!): String!
-    loginMember(input: LoginInput): Member
-    allMembers: [Member!]!
+    loginMember(input: MemberInput): Member
     getMemberByName(membername: String!): Member
     getMemberById(id: Int!): Member
-    findMembersByBollyId(Bolly: String!): [Member]
+    getMembersByBollyId(bollyid: Int!): [Member]
+    allMembers: [Member]
     allBollies: [Bolly!]!
-    findMessagesByBollyId(Bolly: String!): [Message]
+    getMessagesByBollyId(bollyid: Int!): [Message]
+    allMessages: [Message!]!
   }
 
   type Mutation {
     createMember(input: MemberInput): Member
     findOrCreateMember(membername: String!): Member
-    updateMember(membername: String!): [Int!]
-    deleteMember(membername: String!): Int!
+    createBolly(input: BollyInput): Bolly
+    createMessage(input: MessageInput): Message
+    joinBolly(memberid: Int, bollyid: Int): Int
+    deleteMemberById(id: Int!): Int!
 
     createMessage(input: MessageInput): Message
-    deleteMessageByMessageId(id: Int!): Message
+    deleteMessageById(id: Int!): Message
     deleteAllMessagesByMemberId(id: Int!): [Message]
 
-    createBolly(input: BollyInput): Bolly
     updateBollyTimeById(input: BollyTimeUpdateInput): Bolly
   }
 `;

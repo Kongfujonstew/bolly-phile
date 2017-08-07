@@ -1,19 +1,18 @@
 export default {
   Query: {
     hello: (p, { input }, context) => input,
-    loginMember: (p, { membername, memberpassword }, { models }) => 
+    loginMember: (p, { input }, { models }) => 
       models.Member.findOne({
         where: {
-          membername,
-          memberpassword,
+          membername: input.membername,
+          memberpassword: input.memberpassword,
         },
       }),
 
-    allMembers: (p, a, { models }) => models.Member.findAll(),
-    getMemberByName: (p, { membername }, { models }) => 
+    getMemberByName: (p, { input }, { models }) => 
       models.Member.findOne({
         where: {
-          membername,
+          membername: "fake",
         },
       }),
       
@@ -24,59 +23,72 @@ export default {
         }
       }),
     
-    findMembersByBollyId: (p, { bollyId }, { models }) =>
+    getMembersByBollyId: (p, { bollyid }, { models }) =>
       models.Member.findAll({
         where: {
-          bollyId,
+          bollyid,
         }
       }),
 
+    allMembers: (p, a, { models }) => models.Member.findAll(),
     allBollies: (p, a, { models }) => models.Bolly.findAll(),
-
-    findMessagesByBollyId: (p, { bollyId }, { models }) =>
+    getMessagesByBollyId: (p, { bollyid }, { models }) =>
       models.Message.findAll({
         where: {
-          bollyId,
+          bollyid: bollyid
         }
-      })
+      }),
+
+    allMessages: (p, a, { models}) => models.Message.findAll(),
 
   },
 
   Mutation: {
     createMember: (p, { input }, { models }) => models.Member.create(input),
     findOrCreateMember: (p, a, { models }) => models.Member.findOrCreate(a),
-    updateMember: (p, a, { models }) => models.Member.update(a),
-    deleteMember: (p, a, { models }) => models.Member.destroy({ where: a}),
+    joinBolly: (p, { memberid, bollyid }, { models }) => {
+      models.Member.findOne({
+        where: {
+          memberid: memberid
+        }
+      }).then(member => member.updateAttributes({
+        // where: {
+          bollyid: bollyid
+        // }
+      }))
+    },
+
+    deleteMemberById: (p, { id }, { models }) => 
+      models.Member.destroy({
+        where: {
+          id: id
+      }}),
 
     createBolly: (p, { input }, { models }) => models.Bolly.create(input),
-
-    updateBollyTimeById: (p, { id, streamTime }, { models }) =>
-      models.Bolly.findOne({
+    updateBollyTimeById: (p, { id, streamtime }, { models }) =>
+      models.bollyid.findOne({
         where: {
           id: 1
         }
-      }).then((bolly) => {
-        bolly.update({
-          streamTime: streamTime
+      }).then((bollyid) => {
+        bollyid.update({
+          streamTime: streamtime
         })
       }),
 
 
-    createMessage: (p, { memberId, title, text, bollyId }, { models }) =>
-      models.Message.create({
+    createMessage: (p, { input }, { models }) => models.Message.create(input),
+
+    deleteMessageById: (p, { id }, { models }) => 
+      models.Message.destroy({ 
         where: {
-          memberId,
-          bollyId,
-          text,
-        }
-      }),
+          id: id
+      }}),
 
-    deleteMessageByMessageId: (p, { id }, { models }) => models.Message.destroy({ where: a}),
-
-    deleteAllMessagesByMemberId: (p, { memberId }, { models }) => 
+    deleteAllMessagesByMemberId: (p, { memberid }, { models }) => 
       models.Message.findAll({
         where: {
-          memberId,
+          memberid,
         }
       }).then((members) => {
         members.forEach((member) => {

@@ -7,13 +7,11 @@ export default (sequelize, Datatypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    memberId: Datatypes.STRING,
+    memberid: Datatypes.STRING,
     title: Datatypes.STRING,
-    youtubeURL: Datatypes.STRING,
-    streamTime: {type: Datatypes.STRING, default: "0"}
-    
+    youtubeurl: Datatypes.STRING,
+    streamtime: {type: Datatypes.STRING, default: "0"},
+    jsondata: Datatypes.JSONB
   });
   return Bolly;
 };
-
-

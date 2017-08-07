@@ -11,9 +11,9 @@ if (process.env.DATABASE_URL) {
   });
 } else {
   sequelize = new Sequelize(
-    'graphqlserverdb',
-    'graphqlserverdb', 
-    'graphqlserverdb', 
+    'bollyphile1',
+    'bollyphile', 
+    'bollyphile', 
     {
       host: 'localhost',
       dialect: 'postgres',

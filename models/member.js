@@ -9,7 +9,7 @@ export default (sequelize, Datatypes) => {
     },
     membername: { type: Datatypes.STRING, unique: 'true' },
     memberpassword: Datatypes.STRING,
-    bolly: Datatypes.INTEGER
+    bollyid: Datatypes.INTEGER
   });
   return Member;
 };

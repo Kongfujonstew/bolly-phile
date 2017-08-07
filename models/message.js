@@ -8,8 +8,8 @@ export default (sequelize, Datatypes) => {
       primaryKey: true
     },
     time: Datatypes.TIME,
-    memberId: Datatypes.STRING,
-    bollyId: Datatypes.STRING,
+    memberid: Datatypes.STRING,
+    bollyid: Datatypes.INTEGER,
     text: Datatypes.STRING,
   });
   return Message;
