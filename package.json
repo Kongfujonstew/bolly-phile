@@ -6,7 +6,8 @@
   "scripts": {
     "test": "test",
     "start": "nodemon app.js --exec babel-node --presets es2015",
-    "dev": "webpack -d --watch"
+    "dev": "webpack -d --watch",
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",

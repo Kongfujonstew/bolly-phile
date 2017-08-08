@@ -9,17 +9,17 @@ export default {
         },
       }),
 
-    getMemberByName: (p, { input }, { models }) => 
+    getMemberByName: (p, { membername }, { models }) => 
       models.Member.findOne({
         where: {
-          membername: "fake",
+          membername: membername
         },
       }),
       
     getMemberById: (p, { id }, { models }) =>
       models.Member.findOne({
         where: {
-          id,
+          id: id
         }
       }),
     

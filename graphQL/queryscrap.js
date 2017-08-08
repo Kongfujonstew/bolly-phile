@@ -21,15 +21,16 @@ query LoginMember ($input: MemberInput) {
 (GETALLMEMBERS)
 
 
-query GetMemberByName ($input: String!) {
-  getMemberByName (membername: $input) {
+query GetMemberByName ($membername: String!) {
+  getMemberByName (membername: $membername) {
     id,
     membername
   }
 }
 
+
 {
-  "input":"fake"
+  "memberame":"fake"
 }
 
 query GetMemberByID ($input: Int!) {
