@@ -1,19 +1,65 @@
 import React from 'react';
 import {render} from 'react-dom';
-import YouTube from 'react-youtube';
+// import YouTube from 'react-youtube';
 
 export class MyBolly extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      myBolly: {}
+      myBolly: {},
+      currentVideo: null,
+      currentVideoId: '',
+      player: {}
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
     this.setState({
-      myBolly: nextProps.myBolly
-    })
+      player: new YT.Player("player", {
+          // height: '390',
+          width: '518',
+          videoId: null,
+          playerVars: { 'autoplay': 1, 'controls': 0, 'rel': 0 }
+        })
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentVideo.id.videoId !== this.state.currentVideoId) {
+      console.log('called! nexp currentVideo', nextProps.currentVideo);
+      this.setState({
+        currentVideo: nextProps.currentVideo,
+        currentVideoId: nextProps.currentVideo.id.videoId
+      });
+      this.state.player.cueVideoById({
+        videoId: nextProps.currentVideo.id.videoId
+      });
+      // this.state.player.playVideo();
+    }
+  }
+
+  onPlayerReady() {
+    this.state.playVideo();
+  }
+
+  getPlayerTime () {
+    // console.log(this.state.player.getCurrentTime());
+  }
+
+  test () {
+    this.state.player.playVideo();
+  }
+
+  stopVideo() {
+    this.state.player.stopVideo();
+  }
+
+  onPlayerStateChange(event) {
+    // var that = this;
+    // if (event.data == YT.PlayerState.PLAYING) {
+    //   setTimeout(that.stopVideo, 6000);
+    //   that.state.player.done = true;
+    // }
   }
 
   handleReturn (e) {
@@ -24,45 +70,23 @@ export class MyBolly extends React.Component {
   }
 
   render () {
-    const opts = {
-      playerVars: {
-        autoplay: 1
-      }
-    };
-
     return (
       <div className="bollySize whiteBackground floatBorder shadow">
         <div className="titleTextStyling purple">My Bolly</div>
-
-        {this.state.myBolly.id ?
-          <div >
-            <YouTube
-              className="videoSize"
-              videoId={this.state.myBolly.id.videoId} 
-              opts = {opts}
-            />
-          </div>:
-
-          <div className="titleTextStyling purple">Please select a bolly>></div>
-
+        {this.state.currentVideo ?
+          <div><div id="player"></div>
+          <div
+             onClick={this.test.bind(this)}
+          >Tester</div></div> :
+          <div id="player">Please select a bolly</div>
         }
-
-      <div className="messageTextBoxStyling">
-        <textArea
-          className="textBoxStyling"
-          onKeyPress={this.handleReturn}
-
-        ></textArea>
-        <text
-          className="searchText purple hover"
-
-        >Send Message</text>
       </div>
 
-
-
-      </div>
     )
   }
 }
-            // onEnd={}
+
+
+          // <div
+          //   onClick={this.test.bind(this)}
+          // >Tester</div> :

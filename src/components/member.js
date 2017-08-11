@@ -11,9 +11,11 @@ export class Member extends React.Component {
     super(props);
     this.state = {
       memberName: '',
-      showSearch: true,
-      bollySelections: [],
-      ongoingBollies: [],
+      showSearch: true, //otherwise show live bollies
+      searchResults: [],
+      liveBollies: [],
+      inBolly: false,
+      currentVideo: {},
       myBolly: {},
     }
   }
@@ -31,21 +33,22 @@ export class Member extends React.Component {
     })
   }
 
-  showOngoingBollies () {
+  showLiveBollies () {
     this.setState({
       showSearch: false
     })
   }
 
-  addBollySelections (bollyArray) {
+  addSearchResults (bollyArray) {
     this.setState({
-      bollySelections: bollyArray
+      searchResults: bollyArray
     })
   }
 
-  handleSelectBolly (bolly) {
+  handleSelectSearchResult (video) {
+    console.log(video);
     this.setState({
-      myBolly: bolly
+      currentVideo: video
     })
   }
 
@@ -64,17 +67,17 @@ export class Member extends React.Component {
           >Search Bollies</span>
           <span
             className="titleTextStyling purple hover"
-            onClick={this.showOngoingBollies.bind(this)}
-          >Browse Ongoing Bollies {this.state.bollySelections.length}</span>
+            onClick={this.showLiveBollies.bind(this)}
+          >Browse Ongoing Bollies {this.state.searchResults.length}</span>
 
           {this.state.showSearch? 
             <Search 
-              addBollySelections={this.addBollySelections.bind(this)}
-              handleSelectBolly={this.handleSelectBolly.bind(this)}
-              bollies={this.state.bollySelections}
+              addSearchResults={this.addSearchResults.bind(this)}
+              handleSelectSearchResult={this.handleSelectSearchResult.bind(this)}
+              searchResults={this.state.searchResults}
             />:
-            <OngoingBollies 
-              bollies={this.state.ongoingBollies}
+            <LiveBollies 
+              liveBollies={this.state.liveBollies}
             />
           }
 
@@ -84,7 +87,7 @@ export class Member extends React.Component {
         <div className="flexContainer">
           <BollyMessages/>
           <MyBolly 
-            myBolly={this.state.myBolly}
+            currentVideo={this.state.currentVideo}
           />
         </div>
 

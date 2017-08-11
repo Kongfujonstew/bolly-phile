@@ -10,13 +10,13 @@ export class Search extends React.Component {
     super(props);
     this.state = {
       searchTerm: '',
-      bollies: []
+      searchResults: []
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      bollies: nextProps.bollies
+      searchResults: nextProps.searchResults
     });
   }
 
@@ -38,8 +38,8 @@ export class Search extends React.Component {
     console.log(this.state.searchTerm);
   }
 
-  handleBollyClick () {
-    this.props.handleSelectBolly(this.state.bollies[0])
+  handleResultClick (index) {
+    this.props.handleSelectSearchResult(this.state.searchResults[index])
   }
 
   searchYoutube () {
@@ -58,7 +58,7 @@ export class Search extends React.Component {
     })
     .then((response) => {
       console.log(response);
-      that.props.addBollySelections(response.data.items);
+      that.props.addSearchResults(response.data.items);
     })
     .catch(function (error) {
       console.log(error);
@@ -80,9 +80,9 @@ export class Search extends React.Component {
         >Search</text>
 
         <div className="flexContainer">
-          {this.state.bollies.map((bolly, index) =>
+          {this.state.searchResults.map((bolly, index) =>
             <div className="thumbStyling hover" key={index}
-              onClick={this.handleBollyClick.bind(this)}
+              onClick={this.handleResultClick.bind(this, index)}
             >
               <img src={bolly.snippet.thumbnails.default.url}/>
 
