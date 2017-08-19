@@ -15,6 +15,7 @@ export class Search extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('search');
     this.setState({
       searchResults: nextProps.searchResults
     });
@@ -39,10 +40,12 @@ export class Search extends React.Component {
   }
 
   handleResultClick (index) {
+    console.log('hRC called')
     this.props.handleSelectSearchResult(this.state.searchResults[index])
   }
 
   searchYoutube () {
+    console.log('searching youtube')
     let query = this.state.searchTerms + 'hindu movie';
     let that = this;
 

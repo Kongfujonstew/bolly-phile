@@ -25,6 +25,7 @@ export class MyBolly extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('newProps received');
     if (nextProps.currentVideo.id.videoId !== this.state.currentVideoId) {
       console.log('called! nexp currentVideo', nextProps.currentVideo);
       this.setState({

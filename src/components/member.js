@@ -21,32 +21,44 @@ export class Member extends React.Component {
   }
 
   componentWillMount() {
+    console.log('member mount')
     this.setState({
       memberName: this.props.memberName,
     })
     //graphQL query here to get ongoing bollies
   }
 
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log(nextState);
+  // }
+
   showSearch () {
+    console.log('showsearch fired');
     this.setState({
       showSearch: true
     })
   }
 
+  justC () {
+    console.log('jc')
+  }
+
   showLiveBollies () {
+    console.log('slb clicked')
     this.setState({
       showSearch: false
     })
   }
 
   addSearchResults (bollyArray) {
+    console.log('add SR called')
     this.setState({
       searchResults: bollyArray
     })
   }
 
   handleSelectSearchResult (video) {
-    console.log(video);
+    console.log('HSSR called')
     this.setState({
       currentVideo: video
     })
@@ -68,19 +80,20 @@ export class Member extends React.Component {
           <span
             className="titleTextStyling purple hover"
             onClick={this.showLiveBollies.bind(this)}
-          >Browse Ongoing Bollies {this.state.searchResults.length}</span>
+          >Watch a LBolly {this.state.searchResults.length}</span>
 
-          {this.state.showSearch? 
+          {this.state.showSearch ? 
             <Search 
+              searchResults={this.state.searchResults}
               addSearchResults={this.addSearchResults.bind(this)}
               handleSelectSearchResult={this.handleSelectSearchResult.bind(this)}
-              searchResults={this.state.searchResults}
             />:
             <LiveBollies 
               liveBollies={this.state.liveBollies}
+              addSearchResults={this.addSearchResults.bind(this)}
+              handleSelectSearchResult={this.handleSelectSearchResult.bind(this)}
             />
           }
-
 
         </div>
 

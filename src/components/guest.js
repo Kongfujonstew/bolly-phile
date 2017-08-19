@@ -81,7 +81,7 @@ export class Guest extends React.Component {
       }
     })
     .catch(function (error) {
-      console.log(error);
+      console.log('this error:' + error);
     })
   }
 

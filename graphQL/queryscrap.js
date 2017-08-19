@@ -78,7 +78,11 @@ query GetMessagesByBollyId ($bollyid: Int!) {
 
 query AllBollies {
   allBollies {
-    id
+    id,
+    title,
+    youtubeurl,
+    streamtime,
+    jsondata
   }
 }
 

@@ -9,7 +9,7 @@ export class Client extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true,
+      loggedIn: false,
       memberName: ''
     }
   }
@@ -21,6 +21,7 @@ export class Client extends React.Component {
   }
 
   setMemberName (name) {
+    console.log(name + ' loggedIn')
     this.setState({
       memberName: name
     })
