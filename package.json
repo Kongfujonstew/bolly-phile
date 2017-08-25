@@ -9,10 +9,7 @@
     "dev": "webpack -d --watch",
     "build": "webpack -p"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Kongfujonstew/bolly-phile.git"
-  },
+  "repository": "git+https://github.com/Kongfujonstew/bolly-phile.git",
   "keywords": [
     "Bollywood",
     "fun",
@@ -41,8 +38,13 @@
     "pg-hstore": "^2.3.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.0",
     "react-youtube": "^7.4.0",
-    "sequelize": "^4.4.2"
+    "redux": "^3.7.2",
+    "sequelize": "^4.4.2",
+    "yarn": "^0.27.5"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",

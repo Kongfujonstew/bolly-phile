@@ -2,8 +2,8 @@ module.exports = {
   context: __dirname + "/src",
 
   entry: {
-    bollyclient: "./components/main.js",
-    bollyadmin: "./admin/admin.js"
+    bollyclient: "./components/main.js"
+    // bollyadmin: "./admin/admin.js"
   },
   output: {
     filename: "[name].js",

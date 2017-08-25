@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Client} from './client';
+import { Router } from './Router';
 
-ReactDOM.render(<Client/>, document.getElementById('main'));
+
+ReactDOM.render(<Router />, document.getElementById('main'));
