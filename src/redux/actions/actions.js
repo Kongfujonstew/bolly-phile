@@ -1,4 +1,15 @@
+//Home
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SHOW_MEMBER_LOGIN = 'SHOW_MEMBER_LOGIN';
 export const SHOW_CREATE_NEW_LOGIN = 'SHOW_CREATE_NEW_LOGIN';
+
+//Member
+export const SHOW_LIVE_BOLLY_SEARCH = 'SHOW_LIVE_BOLLY_SEARCH';
+export const SHOW_SEARCH = 'SHOW_SEARCH';
+
+//SEARCH
+export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
+
+
+//TBD

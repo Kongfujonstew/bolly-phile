@@ -7,16 +7,19 @@ const defaultState = {
   memberName: 'SteveTesto',
   nameEntry: '',
   passEntry: '',
+  searchEntry: 'Search from the Bolly-phile library',
   showSearch: true,
   searchResults: [],
-  liveBollies: [],
+  liveBollyResults: [],
   currentBolly: {},
-  bollyLive: false,
+  bollyIsLive: false,
   bollyOwner: false,
+  messages: []
 }
 
 export default (state = defaultState, action) => {
   switch (action.type) {
+    //Home
     case 'LOGIN' :
       return reducers.login(state, action);
     case 'LOGOUT' :
@@ -27,31 +30,20 @@ export default (state = defaultState, action) => {
       return reducers.showCreateNewLogin(state, action);
     case 'CHANGE_MEMBER_NAME' :
       return reducers.changeMemberName(state, action);
+    //Member
+    case 'SHOW_SEARCH' :
+      return reducers.showSearch(state, action);
+    case 'SHOW_LIVE_BOLLY_SEARCH' :
+      return reducers.showLiveBollySearch(state, action);
+    //Search (YT)
+    case 'SET_SEARCH_ENTRY' :
+      return reducers.setSearchEntry(state, action);
+    case 'SET_SEARCH_RESULTS' :
+      return reducers.searchYoutube(state, action);
+    case 'SELECT_SEARCH_RESULT' :
+      return reducers.selectSearchResult(state, action);
     default:
       return state;
   }
 }
 
-
-// export default function (state = {
-//   isDeleting: false,
-//   error: '',
-// }, action) {
-//   switch (action.type) {
-//     case 'DELETE_PAGE_PENDING':
-//       return {
-//         isDeleting: true,
-//       };
-//     case 'DELETE_PAGE_REJECTED':
-//       return {
-//         isDeleting: false,
-//         error: action.payload.response.statusText,
-//       };
-//     case 'DELETE_PAGE_FULFILLED':
-//       return {
-//         isDeleting: false,
-//       };
-//     default:
-//       return state;
-//   }
-// }

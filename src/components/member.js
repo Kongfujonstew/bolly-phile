@@ -1,55 +1,14 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {Search} from './search';
-import {LiveBollies} from './livebollies';
-import {MyBolly} from './mybolly';
-import {BollyMessages} from './bollymessages';
+import { render } from 'react-dom';
+import { connect } from 'react-redux';
+import * as actionCreators from '../redux/actions/index'
+import { Search } from './search';
+import { SearchLiveBollies } from './SearchLiveBollies';
+import { Bolly } from './Bolly';
+import { Messages } from './Messages';
 
 
-export class Member extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      memberName: '',
-      showSearch: true, //otherwise show live bollies
-      searchResults: [],
-      liveBollies: [],
-      inBolly: false,
-      currentVideo: {},
-      myBolly: {},
-    }
-  }
-
-  componentWillMount() {
-    console.log('member mount')
-    this.setState({
-      memberName: this.props.memberName,
-    })
-    //graphQL query here to get ongoing bollies
-  }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log(nextState);
-  // }
-
-  showSearch () {
-    console.log('showsearch fired');
-    this.setState({
-      showSearch: true
-    })
-  }
-
-  justC () {
-    console.log('jc')
-  }
-
-  showLiveBollies () {
-    console.log('slb clicked')
-    this.setState({
-      showSearch: false
-    })
-  }
-
+class Container extends React.Component {
   addSearchResults (bollyArray) {
     console.log('add SR called')
     this.setState({
@@ -69,42 +28,50 @@ export class Member extends React.Component {
       <div className="fullHeight memberMargin bBackground">
         <div className="flexContainer logoPosition tealBackground">
           <img src="../images/b.png" className="bPicStyling"/>
-          <div className="nameText bollyFont largeFont">{this.state.memberName}</div>
+          <div className="nameText bollyFont largeFont">{this.props.memberName}</div>
         </div>
 
         <div className="addBollySize whiteBackground floatBorder shadow">
           <span
             className="titleTextStyling purple hover"
-            onClick={this.showSearch.bind(this)}
+            onClick={this.props.showSearch}
           >Search Bollies</span>
           <span
             className="titleTextStyling purple hover"
-            onClick={this.showLiveBollies.bind(this)}
-          >Watch a LBolly {this.state.searchResults.length}</span>
+            onClick={this.props.showLiveBollies}
+          >Watch a LBolly, searchEntry = {this.props.searchEntry}</span>
 
-          {this.state.showSearch ? 
-            <Search 
-              searchResults={this.state.searchResults}
-              addSearchResults={this.addSearchResults.bind(this)}
-              handleSelectSearchResult={this.handleSelectSearchResult.bind(this)}
-            />:
-            <LiveBollies 
-              liveBollies={this.state.liveBollies}
-              addSearchResults={this.addSearchResults.bind(this)}
-              handleSelectSearchResult={this.handleSelectSearchResult.bind(this)}
-            />
-          }
+          {this.props.showSearch ? <Search />: <SearchLiveBollies />}
 
         </div>
 
         <div className="flexContainer">
-          <BollyMessages/>
-          <MyBolly 
-            currentVideo={this.state.currentVideo}
-          />
+          <Messages/>
+          <Bolly />
         </div>
 
       </div>
     )
   }
 }
+
+
+let mapStateToProps = (state) => {
+  return {
+    memberName: state.memberName,
+    showSearch: state.showSearch,
+    searchEntry: state.searchEntry,//only for testing
+    searchResults: state.searchResults,
+    bollyIsLive: state.bollyIsLive,
+    bollyOwner: false
+  };
+};
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    showSearch: () => {actionCreators.showSearch()},
+    showLiveBollySearch: () => {actionCreators.showLiveBollySearch()}
+  };
+};
+
+export const Member = connect(mapStateToProps, mapDispatchToProps)(Container);

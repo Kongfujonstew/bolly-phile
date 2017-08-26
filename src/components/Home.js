@@ -1,24 +1,12 @@
 import React from 'react';
 import {render} from 'react-dom';
-// import axios from 'axios';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as createActions from '../redux/actions/index';
-import { changeLoggedInStatus, changeName /*, createOrLoginMember*/} from '../redux/actions/index';
 
-import url from '../../evariables';
+
 
 class Container extends React.Component {
-  constructor (props) {
-    super(props)
-  }
-
-  componentDidMount() {
-    console.log(this.props.showMemberLogin);
-  }
-
-
   render () {
     let guestMessage = <text>Welcome to  <text className="bollyFont">Bolly-phile </text>
       . . . Now you <text className="bollyFont">know</text> youre in Bollywood.

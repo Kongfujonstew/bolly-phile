@@ -8,6 +8,8 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducers from '../redux/reducers/index';
 
+import { Member } from './Member';
+
 // import promiseMiddleware from 'redux-promise-middleware';
 // import thunk from 'redux-thunk';
 
@@ -20,16 +22,23 @@ export class Router extends React.Component {
     return (
       <BrowserRouter>
         <Provider store={store}>
-          <Switch>
-            <Route path="/" component={Home} />
-
-
-
-
-            <Route path="/test" component={testDiv} />
-          </Switch>
+      <Member />
         </Provider>
       </BrowserRouter>
     )
   }
 }
+
+
+      // <BrowserRouter>
+      //   <Provider store={store}>
+      //     <Switch>
+      //       <Route path="/" component={Home} />
+
+
+
+
+      //       <Route path="/test" component={testDiv} />
+      //     </Switch>
+      //   </Provider>
+      // </BrowserRouter>

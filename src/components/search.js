@@ -1,71 +1,21 @@
 import React from 'react';
 import {render} from 'react-dom';
+import { connect } from 'react-redux';
+import * as actionCreators from '../redux/actions/index';
 
-import axios from 'axios';
 
-const API_KEY = require('../../evariables.js').API_KEY;
-
-export class Search extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchTerm: '',
-      searchResults: []
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log('search');
-    this.setState({
-      searchResults: nextProps.searchResults
-    });
-  }
-
+class Container extends React.Component {
   handleReturn (e) {
-    let that = this;
+    let that = this;//necessary?
     if (e.key === 'Enter') {
       e.preventDefault();
     }
-    // this.searchYoutube();
-  }
-
-  handleSearchTermChange (e) {
-    console.log('handleSearchTermChange called')
-    e.preventDefault();
-    this.setState({
-      searchTerms: e.target.value,
-      selectedBolly: {}
-    });
-    console.log(this.state.searchTerm);
+    this.props.searchYoutube;
   }
 
   handleResultClick (index) {
     console.log('hRC called')
     this.props.handleSelectSearchResult(this.state.searchResults[index])
-  }
-
-  searchYoutube () {
-    console.log('searching youtube')
-    let query = this.state.searchTerms + 'hindu movie';
-    let that = this;
-
-    axios.get('https://www.googleapis.com/youtube/v3/search', {
-      params: {
-        key: API_KEY,
-        q: query,
-        maxResults: 5,
-        part: 'snippet',
-        type: 'video',
-        videoEmbeddable: true
-      }
-    })
-    .then((response) => {
-      console.log(response);
-      that.props.addSearchResults(response.data.items);
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
   }
 
   render () {
@@ -74,20 +24,21 @@ export class Search extends React.Component {
       >
         <textArea
           className="textBoxStyling"
-          onChange={this.handleSearchTermChange.bind(this)}
-          onKeyPress={this.handleReturn}
+          placeholder={this.props.searchEntry}
+          onChange={this.props.setSearchEntry}
+          onKeyPress={this.handleReturn.bind(this)}
         ></textArea>
         <text
           className="searchText purple hover"
-          onClick={this.searchYoutube.bind(this)}
+          onClick={this.props.searchYoutube}
         >Search</text>
 
         <div className="flexContainer">
-          {this.state.searchResults.map((bolly, index) =>
+          {this.props.searchResults.map((bolly, index) =>
             <div className="thumbStyling hover" key={index}
-              onClick={this.handleResultClick.bind(this, index)}
+              onClick={this.props.selectSearchResult(bolly)}
             >
-              <img src={bolly.snippet.thumbnails.default.url}/>
+              <img src={bolly.imageURL} alt={"bolly image!"}/>
 
             </div>
           )}
@@ -95,5 +46,22 @@ export class Search extends React.Component {
 
       </div>
     );
-  }
-}
+  };
+};
+
+let mapStateToProps = (state) => {
+  return {
+    searchEntry: state.searchEntry,
+    searchResults: state.searchResults
+  };
+};
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    setSearchEntry: () => {dispatch(actionCreators.setSearchEntry(e))},
+    searchYoutube: () => {dispatch(actionCreators.searchYoutube(this.props.searchEntry))},
+    selectSearchResult: (bolly) => {dispatch(actionCreators.selectSearchResult(bolly))}
+  };
+};
+
+export const Search = connect(mapStateToProps, mapDispatchToProps)(Container);
